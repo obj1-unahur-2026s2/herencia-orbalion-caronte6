@@ -1,0 +1,20 @@
+import orbalion.*
+
+
+describe "test parcial" {
+  const juan = new Entrenador(cantidadDeCiclos=20,nivelDePrecision=24,rol=guiaMental)
+  const dioses = new Luminico(nombre="dioses",entrenador=juan,energiaBase=20,tecnologias=[],radiacion=5001,cristalesSolares=[])
+
+
+  method initialize(){
+    juan.cambiarCicloA(20)
+    juan.sintonisar()
+  }
+  test "entrenador no puede tener un rol distinto al autorizado por FOZ" {
+    assert.throwsException({new Entrenador(cantidadDeCiclos=20,nivelDePrecision=24,rol=0)})
+  }
+  test "un equipo lumino mas de 5000
+   de radiacion devuelve "{
+    assert.equals()
+   }
+}
