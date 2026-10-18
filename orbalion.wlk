@@ -74,9 +74,11 @@ class Entrenador{
         }
         nivelDePresicion=nivelDePresicion.limitBetween(0, 100)
     }
-
+    method esEliteGalactica()= ciclosSolaresDeExperiencia >10 && rol.esElite(self)
+    method presicion()=nivelDePresicion
+    method estaEnSintonia()=estaEnSintonia
 }
 
-object estrategaCuantico{}
-object arquitectoDeEnergia{}
-object guiaMental{}
+object estrategaCuantico{method esElite(entrenador)= entrenador.presicion()>80}
+object arquitectoDeEnergia{method esElite(entrenador)= entrenador.estaEnSintonia()}
+object guiaMental{method esElite(entrenador)= true}

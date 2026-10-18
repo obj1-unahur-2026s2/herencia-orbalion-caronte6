@@ -40,4 +40,21 @@ describe"test de parcial"{
 
         assert.equals(24, arsenalSintetico.energiaTotal())
     }
+
+    test "un estratega cuantico con 12 ciclos y precision 90 es elite galactica"{
+        juan.cambiarRol(estrategaCuantico)
+        juan.cambiarCiclosSolares(12)
+        juan.cambiarPresicion(90)
+        assert.that(juan.esEliteGalactica())
+    }
+    test "arquitecto de energia con 11 ciclos sin sintonia no es elite"{
+        juan.cambiarRol(arquitectoDeEnergia)
+        juan.cambiarCiclosSolares(11)
+        juan.desintonisar()
+        assert.that(!juan.esEliteGalactica())
+    }
+    test "guia mental "{
+        juan.cambiarCiclosSolares(11)
+        assert.that(juan.esEliteGalactica())
+    }
 }
