@@ -2,7 +2,7 @@ class Equipo{
     method nombre()=nombre
     method nivelDeEnergiaBase()=energiaBase
     method entrenador()=entrenador
-    method tecnoligias()=tecnologias
+    method tecnologias()=tecnologias
 
     const nombre
     var energiaBase
@@ -12,6 +12,7 @@ class Equipo{
     var entrenador 
     method cambiarEntrenador(nuevo){entrenador=nuevo}
     method energiaTotal()=energiaBase + tecnologias.filter({tecnologia=>tecnologia.estaActivo()}).sum({tecnologia=>tecnologia.valorEnergetico()})
+    method esPrestigioUniversal()= false
 }
 
 class Tecnologia{
@@ -34,6 +35,7 @@ class Luminico inherits Equipo(){
     var radiacion
     method cambiarNivelDeRadiacion(nuevaCantidad){radiacion=nuevaCantidad}   
     override method energiaTotal()= if(radiacion <=5000)super()+0.1*super() else super()
+    override method esPrestigioUniversal()= cristalesSolares.size()>=3 && entrenador.esEliteGalactica() && tecnologias.any({tecnologia=>tecnologia.estaActivo()})
 }
 class Sintetico inherits Equipo(){
     method nivelDeProcesamientoCental()= teraflops
@@ -47,6 +49,7 @@ class Sintetico inherits Equipo(){
     method cambiarTeraflops(nuevaCantidad){teraflops=nuevaCantidad}
     method cambiarModulos(nuevaCantidad){modulos=nuevaCantidad}
     override method energiaTotal()=if(modulos>5)super()- 0.2*super() else super()
+    override method esPrestigioUniversal()= estaCertificado && modulos>3 && tecnologias.all({tecnologia=>tecnologia.estaActivo()})
 }
 class Eterico inherits Equipo(){
     method nivelDeFluctuacion()= fluctuacion

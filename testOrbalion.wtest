@@ -14,10 +14,13 @@ describe"test de parcial"{
         armasLuz.cambiarEnergia(20)
         armasLuz.cambiarNivelDeRadiacion(5001)
         armasLuz.cristalesSolares().clear()
+        armasLuz.tecnologias().clear()
         
         arsenalSintetico.cambiarEnergia(10)
         arsenalSintetico.cambiarTeraflops(7)
         arsenalSintetico.cambiarModulos(6)
+        arsenalSintetico.tecnologias().clear()
+
     }
 
     test"entrenador no puede tener un rol no autorizado"{
@@ -57,4 +60,27 @@ describe"test de parcial"{
         juan.cambiarCiclosSolares(11)
         assert.that(juan.esEliteGalactica())
     }
+
+    test "un equipo luminico con 3 cristales, entreandor elite y una tecnologia activa es prestigio universal"{
+        armasLuz.agregarCristal("atomico")
+        armasLuz.agregarCristal("enana roja")
+        armasLuz.agregarCristal("enana morada")
+        juan.cambiarCiclosSolares(11)
+        armasLuz.agregarTecnologia(pistola)
+        assert.that(armasLuz.esPrestigioUniversal())
+    }
+    test "un equipo sintetico con 4 modulos y todas las tecnologias activas es prestigio universal"{
+        arsenalSintetico.agregarTecnologia(pistola)
+        assert.that(arsenalSintetico.esPrestigioUniversal())
+    }
+    test "un equpo luminico sin cristales ni entrenador elite con una tecnologia activa no es prestigio universal"{
+        armasLuz.agregarTecnologia(pistola)
+        assert.that(!armasLuz.esPrestigioUniversal())
+    }
+    test"un equipo sistetico sin modulos y sin tecnologias no es prestigio universal"{
+        arsenalSintetico.cambiarModulos(0)
+        assert.that(!arsenalSintetico.esPrestigioUniversal())
+    }
+
+    
 }
