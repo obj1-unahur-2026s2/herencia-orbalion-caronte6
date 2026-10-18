@@ -1,0 +1,43 @@
+import orbalion.*
+
+
+describe"test de parcial"{
+    const juan = new Entrenador(ciclosSolaresDeExperiencia=10,nivelDePresicion=5,rol=guiaMental)
+    const armasLuz = new Luminico(nombre="qplars",energiaBase=20,tecnologias=[],entrenador =juan,cristalesSolares=[],radiacion=5001)
+    const arsenalSintetico = new Sintetico(nombre="carbono",energiaBase=10,tecnologias=[],entrenador=juan,teraflops=7,modulos=6)
+    const pistola = new Tecnologia(nombre="rayo",energia=7)
+    method initialize(){
+        juan.cambiarCiclosSolares(10)
+        juan.cambiarPresicion(5)
+        juan.cambiarRol(guiaMental)
+
+        armasLuz.cambiarEnergia(20)
+        armasLuz.cambiarNivelDeRadiacion(5001)
+        armasLuz.cristalesSolares().clear()
+        
+        arsenalSintetico.cambiarEnergia(10)
+        arsenalSintetico.cambiarTeraflops(7)
+        arsenalSintetico.cambiarModulos(6)
+    }
+
+    test"entrenador no puede tener un rol no autorizado"{
+        assert.throwsException({new Entrenador(ciclosSolaresDeExperiencia=10,nivelDePresicion=5,rol=0)})
+    }
+    test "equipo luminico con mas de 5000 de radiacion y sin tecnologias devuelven su energiaBase"{
+        assert.equals(20, armasLuz.energiaTotal())        
+    }
+    test "un Equipo luminico con menos de 5000 radiacion obtiene un 10% sobre su energiaTotal"{
+        armasLuz.cambiarNivelDeRadiacion(100)
+        assert.equals(22,armasLuz.energiaTotal())
+    }
+    test "un equipo sintetico con 6 modulos sufre una penalizacion del 20%" {
+        assert.equals(8,arsenalSintetico.energiaTotal())
+    }
+    test "un equipo sintetico de 4 modulos y 2 tecnologias suma correctamente"{
+        arsenalSintetico.cambiarModulos(4)
+        arsenalSintetico.agregarTecnologia(pistola)
+        arsenalSintetico.agregarTecnologia(pistola)
+
+        assert.equals(24, arsenalSintetico.energiaTotal())
+    }
+}
